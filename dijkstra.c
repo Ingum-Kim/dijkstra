@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
 
@@ -48,7 +47,11 @@ void main(){
 	int i,j;
 	int n;
 	int **W;
+	int num;
 	edge *F;
+
+	printf("Directed graph?(Yes : 1, No : 0) : ");
+	scanf("%d",&num);
 	
 	printf("노드의 수 : ");
 	scanf("%d",&n);
@@ -67,25 +70,29 @@ void main(){
 	}
 	
 	printf("\n입력 그래프 edge :\n");
-	for(i = 0; i <=n; i++){
-		for(j = 0; j <= n; j++){
-			if(W[i][j] != 0 && W[i][j] != INT_MAX)
-				printf("%d -> %d, weight: %d\n",i,j,W[i][j]);
+	if(num){
+		for(i = 1; i <=n; i++){
+			for(j = 1; j <= n; j++){
+				if(W[i][j] != 0 && W[i][j] != INT_MAX)
+					printf("(%d , %d), weight: %d\n",i,j,W[i][j]);
+			}
+		}
+	}else{
+		for(i = 1; i <=n; i++){
+			for(j = i + 1; j <= n; j++){
+				if(W[i][j] != 0 && W[i][j] != INT_MAX)
+					printf("(%d , %d), weight: %d\n",i,j,W[i][j]);
+			}
 		}
 	}
 
 	dijkstra(n,W,F);
 	printf("\n결과 edge :\n");
 	for(i = 0; i < n-1; i++)
-		printf("%d -> %d, weight: %d\n",F[i].start,F[i].end,W[F[i].start][F[i].end]);
+		printf("(%d , %d), weight: %d\n",F[i].start,F[i].end,W[F[i].start][F[i].end]);
 	
 	for(i = 0; i < n+1; i++)
 		free(W[i]);
 	free(W);
 	free(F);
 }
-
-	
-
-
-	
